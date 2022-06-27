@@ -10,22 +10,22 @@ const buildUrl = (width) => {
 
 const sizes = [320, 768]
 
-sizes.forEach(i => {
-	imgWrap.innerHTML = imgWrap.innerHTML + `<figure class="test-img">
-				<img src="${buildUrl(i)}" alt="${i}">
-				<figcaption>${i}</figcaption>
-			</figure>`
+// sizes.forEach(i => {
+// 	imgWrap.innerHTML = imgWrap.innerHTML + `<figure class="test-img">
+// 				<img src="${buildUrl(i)}" alt="${i}">
+// 				<figcaption>${i}</figcaption>
+// 			</figure>`
 
-	if (devicePixelRatio > 1) {
+// 	if (devicePixelRatio > 1) {
 
-		imgWrap.innerHTML = imgWrap.innerHTML + `<figure class="test-img">
-				<img src="${buildUrl(i * 2)}" alt="${i * 2}">
-				<figcaption>devicePixelRatio: ${devicePixelRatio} <br> ${i * 2}</figcaption>
-			</figure>`
+// 		imgWrap.innerHTML = imgWrap.innerHTML + `<figure class="test-img">
+// 				<img src="${buildUrl(i * 2)}" alt="${i * 2}">
+// 				<figcaption>devicePixelRatio: ${devicePixelRatio} <br> ${i * 2}</figcaption>
+// 			</figure>`
 
-	}
+// 	}
 
-});
+// });
 
 
 

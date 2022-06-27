@@ -14,25 +14,28 @@ body {
 
 .test-img-wrap
 {
-	display: flex; align-items: center;
+display: flex;
 flex-direction:column ;
- 
-
+width: 100%;
+gap: 1em;
 }
 
 
 .test-img {
 	flex:100%;
+	width: 100%;
 	max-width: 100%;
 	font-weight: bold;
 		border: 1px solid #3333;
 		border-radius: 7px;
 	text-align: center;
 	overflow: hidden;
+	margin: 0;
+	padding: 0;
 }
 .test-img img{
 	max-width: 100%;
-
+	width: 100%;
 }
 .css-detector {
 	display: none;
@@ -47,14 +50,4 @@ only screen and (min-device-pixel-ratio: 1.5) {
 }
 }
 
- @media (min-width: 767.98px) {
- 	.test-img-wrap {
- 		flex-direction: row;
- 	}
-
- 	.test-img {
- 		flex: 30%;
- 		max-width: 30%;
- 	}
-
- }
+ 
