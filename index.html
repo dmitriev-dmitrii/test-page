@@ -10,51 +10,209 @@
 </head>
 
 <body>
-	<h1></h1>
-	<h2 class="css-detector">css-detector </h2>
-	<div class="
-test-img-wrap">
+	<div class="galleria__overlay">
 
-		<figure class="test-img">
-			<img src="img/320.png">
-			<figcaption>320</figcaption>
-		</figure>
+		<div class="galleria__item-list-wrapper">
+			<div class="galleria__item-list">
+				<!-- <div class="galleria__item">item</div> -->
+			</div>
 
-		<figure class="test-img">
-			<img src="img/640.png">
-			<figcaption>640</figcaption>
-		</figure>
+		</div>
 
 	</div>
 
-	<div class="
-		test-img-wrap">
-
-		<figure class="test-img">
-			<img src="img/845.png">
-			<figcaption>845</figcaption>
-		</figure>
 
 
-		<figure class="test-img">
-			<img src="img/1690.png">
-			<figcaption>1690</figcaption>
-		</figure>
+	<div class="galleria__preview-list">
 
-		<figure class="test-img">
-			<img src="img/full.png" alt="">
-			<figcaption>1690</figcaption>
-		</figure>
+		<!-- <div class="galleria__preview-item">
+		</div> -->
+
 	</div>
 
-	<div class="
-			test-img-wrap">
-	
-		<figure class="test-img">
-			<img src="img/full.png" alt="">
-			<figcaption>full</figcaption>
-		</figure>
-	</div>
+	<style>
+		body {
+			min-height: 100vh;
+			height: 100%;
+			display: flex;
+			margin: 0;
+			padding: 0;
+		}
+
+		.galleria__overlay {
+			display: none;
+		}
+
+		.galleria__overlay.active {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100vh;
+			background-color: rgba(0, 0, 0, 0.9);
+			position: relative;
+		}
+
+		.galleria__item-list-wrapper {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			height: 90%;
+			width: 90%;
+			border-radius: 1rem;
+			border: 1px solid white;
+
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: space-between;
+			overflow: hidden;
+		}
+
+		.galleria__item-list {
+			width: 100%;
+			height: 100%;
+		}
+
+		.galleria__item {
+			display: none;
+		}
+
+		.galleria__item.active {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+
+		.galleria__preview-list {
+			width: 30%;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.galleria__preview-item {
+			width: 100%;
+			height: 200px;
+		}
+
+		.galleria__preview-item.active {
+			border: 2px solid rebeccapurple;
+			width: 100%;
+			height: 200px;
+		}
+
+		.galleria__item-video {}
+
+		.galleria__item-img {}
+	</style>
+	<script defer>
+
+		var data = [
+
+			{
+				type: 'video',
+				src: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
+				poster: 'img/320.png'
+			},
+
+			{
+				type: 'img',
+				src: 'img/320.png',
+				poster: 'img/320.png'
+			}
+		]
+
+		function installSlider(data = []) {
+
+			if (!data.length) {
+				return
+			}
+
+			const galleriaPreviewList = document.querySelector('.galleria__preview-list')
+			const galleriaList = document.querySelector('.galleria__item-list')
+			const galleriaOverlay = document.querySelector('.galleria__overlay')
+
+
+			const closeBtn = document.createElement("button")
+			closeBtn.innerText = 'закрыть'
+			closeBtn.classList.add('galleria__close')
+
+			document.querySelector('.galleria__item-list-wrapper').append(closeBtn)
+
+
+			data.forEach((item, index) => {
+				let galleriaItem = document.createElement("div")
+				galleriaItem.classList.add('galleria__item');
+				galleriaItem.setAttribute('galleria', index)
+
+				if (item.type === 'img') {
+					galleriaItem.innerHTML = `<img src="${item.src}" class='galleria__item-img' alt="">`
+				}
+
+				if (item.type === 'video') {
+					galleriaItem.innerHTML = `
+				<video class="galleria__item-video" width="100%" poster="${item.poster}" controls="controls"> <source src="${item.src}" /> </video>`
+				}
+
+				galleriaList.append(galleriaItem)
+
+				let previewItem = document.createElement("img")
+
+				previewItem.classList.add('galleria__preview-item');
+				previewItem.setAttribute('data-galleria', index)
+
+				previewItem.src = item.poster
+
+				galleriaPreviewList.append(previewItem)
+			});
+
+
+			function setActiveItem(event) {
+				if (!event.target.classList.contains('galleria__preview-item')) {
+					return
+				}
+
+				removeActiveItem()
+				const currentIndex = event.target.dataset.galleria
+				galleriaOverlay.classList.add('active')
+				galleriaList.children[currentIndex].classList.add('active')
+				galleriaPreviewList.children[currentIndex].classList.add('active')
+			}
+
+			function removeActiveItem() {
+
+
+				Array.from(galleriaList.children).forEach((item, index) => {
+					item.classList.remove('active')
+				})
+				Array.from(galleriaPreviewList.children).forEach((item, index) => {
+					item.classList.remove('active')
+				})
+
+			}
+
+
+
+			function closeModal() {
+				galleriaOverlay.classList.remove('active');
+				removeActiveItem()
+			}
+
+			galleriaOverlay.addEventListener('click', (event) => {
+				if (event.target === galleriaOverlay) {
+					closeModal()
+				}
+			})
+
+			galleriaPreviewList.addEventListener('click', setActiveItem)
+			galleriaList.addEventListener('click', setActiveItem)
+			closeBtn.addEventListener('click', closeModal)
+
+		}
+		installSlider(data)
+	</script>
 	<script src="index.js" defer></script>
 </body>
 
