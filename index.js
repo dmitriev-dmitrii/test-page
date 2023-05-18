@@ -1,2 +1,4 @@
 console.log('hui')
-alert (window.navigator.userAgent)
+
+alert ('navigator :' + window.navigator.userAgent ) 
+alert ('devicePixelRatio:' +  window.devicePixelRatio) 
