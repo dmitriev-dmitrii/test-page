@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">home</a></li>
+    </ul>
+</nav>
+<hr>
+
+<div class="dates__wrapper">
+
+    <fieldset>
+
+<form id="datesForm">
+    <legend> <b> Dates Filter</b> </legend>
+<label>
+    <span>timeZone</span>
+    <input id="timeZoneInput" type="number" value="-12">
+</label>
+    <label>
+        <span>Date</span>
+    <input type="datetime-local" id="dateInput" value="2023-07-10T10:05" />
+    </label>
+
+    <div style="margin-left: auto">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </div>
+
+</form>
+
+    </fieldset>
+
+    <ul id="dates">
+    </ul>
+</div>
+</body>
+<script>
+
+    const datesForm = document.getElementById('datesForm')
+    const dateInput = document.getElementById('dateInput')
+    const timeZoneInput = document.getElementById('timeZoneInput')
+    datesForm.addEventListener('submit',datesFormHandle);
+    const datesList = document.getElementById('dates')
+    setTimeout(()=>{
+        datesFormHandle()
+    },1000)
+    const print = (...args)=> {
+        const item =  document.createElement("li")
+        item.textContent = args.join(' ')
+        datesList.append(item)
+    }
+
+    function datesFormHandle  (event) {
+        datesList.innerText=''
+        event?.preventDefault()
+
+        const timeZoneValue =  parseInt( timeZoneInput.value,10 )
+        const dateValue =  dateInput.value
+
+        const browserData = new Date( dateValue )
+        const browserUtcData = new Date(browserData.getUTCFullYear(),browserData.getUTCMonth(),browserData.getUTCDate(),browserData.getUTCHours(),browserData.getUTCMinutes(),browserData.getUTCSeconds(),browserData.getUTCMilliseconds())
+
+        const userData = timeZoneConvect ( dateValue , timeZoneValue  )
+        const utcData = utcConvect( dateValue )
+
+        print('browserData')
+        print( browserData )
+        print( browserData.getTime() )
+        print()
+        print( 'userData', )
+        print( userData )
+        print( userData.getTime() )
+        print()
+        print(  'browserUtcData' )
+        print( browserUtcData )
+        print( browserUtcData.getTime() )
+        print()
+        print('utcData'  )
+        print( utcData )
+        print( utcData.getTime() )
+
+
+
+    }
+
+    function utcConvect ( date ) {
+        const d = new  Date(date)
+        d.setMinutes( d.getMinutes() + d.getTimezoneOffset() )
+        return d
+    }
+    
+    function timeZoneConvect ( date , timeZone ) {
+        const d = new  Date(date)
+        const timeZoneDifference = timeZone * 60
+        // console.log(timeZoneDifference)
+        d.setMinutes( d.getMinutes() + d.getTimezoneOffset() + timeZoneDifference ,0 )
+        return d
+    }
+
+    // filter log
+    // tz -12
+    //  timeDifference -720
+    //  Thu Jul 06 2023 03:18:14 GMT+0300 (Москва, стандартное время)
+    // userNow.getDate() + day 6 1 7
+    // from Thu Jul 06 2023 15:00:00 GMT+0300 (Москва, стандартное время)
+    //  end Sat Jul 08 2023 03:18:14 GMT+0300 (Москва, стандартное время)
+    //
+    //  {tsTo: 1688644800, tsFrom: 0, minOffset: 0}
+
+</script>
+<style>
+    .dates__wrapper {
+        display: flex;
+        align-items: stretch;
+        flex-direction:column ;
+        justify-content: center;
+        margin: 1em auto;
+        max-width: 50rem;
+    }
+    fieldset {
+        border-radius:.5rem ;
+        border: 1px solid;
+    }
+    form {
+        display: flex;
+        align-items: stretch;
+        flex-direction:column ;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    legend {
+        text-align: center;
+    }
+
+    button {
+        padding:  0.25rem 1.25rem;
+        border-radius:0.25rem ;
+        border: 1px solid;
+        font-weight: bold;
+
+    }
+
+
+    input[ type="datetime-local"]{
+        margin-bottom: 1rem;
+    }
+
+
+    .dates__wrapper li{
+        padding:0 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        line-height: 2rem;
+    }
+
+    input {
+        display: block;
+        width: 100%;
+        padding:  0.25rem 1rem;
+    }
+    hr {
+        width: 100%;
+    }
+</style>
+</html>
