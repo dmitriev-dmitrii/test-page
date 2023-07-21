@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">home</a></li>
+    </ul>
+</nav>
+<div class="content__wrapper">
+
+<h1>flex gap</h1>
+<label>
+    blockIsActive
+    <input type="checkbox" id="blockIsActiveChecbox" >
+</label>
+<h2>default</h2>
+<div class="flex gap">
+    <div class="child">1</div>
+    <div class="child">2 active-checbox</div>
+</div>
+<h2>custom</h2>
+<div class="flex custom">
+    <div class="child">1</div>
+    <div class="child">2 active-checbox</div>
+</div>
+</div>
+</body>
+<script>
+    const flexDivs = document.querySelectorAll('.flex')
+    const blockIsActiveChecbox = document.getElementById('blockIsActiveChecbox')
+    blockIsActiveChecbox.addEventListener('change',blockIsActiveChecboxHandle)
+
+    function blockIsActiveChecboxHandle ( e ) {
+       const val =  e.target.checked
+       if (val) {
+        flexDivs.forEach((item)=>{
+        item.classList.remove('active-checbox')
+       })
+
+        return
+       }
+ 
+       flexDivs.forEach((item)=>{
+         item.classList.add('active-checbox')
+        })
+    }
+    
+
+
+</script>
+<style>
+
+
+.content__wrapper {
+        display: flex;
+        align-items: stretch;
+        flex-direction:column ;
+        justify-content: center;
+        margin: auto;
+        max-width: 30rem;
+        border: 1px solid ;
+        border-radius: 10px;
+        padding: 1rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.active-checbox div:nth-child(2) {
+    display: none;
+}
+
+.gap{
+    gap: 1rem;
+}
+
+.custom {
+    margin:0 -.5rem;
+}
+.custom .child {
+    margin: 0 .5rem;
+}
+
+.child {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: dodgerblue;
+    font-weight: bold;
+    color: white;
+}
+</style>
+</html>
