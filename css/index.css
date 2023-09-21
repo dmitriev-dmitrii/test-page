@@ -1,0 +1,46 @@
+@import url('./nav.css');
+
+*{
+    box-sizing: border-box;
+}
+html{
+    color-scheme: dark;
+    font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    padding:  0.25rem 1.25rem;
+    border-radius:0.25rem ;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+a {
+    color: #00B7FF;
+}
+
+details {
+    border: 1px solid ;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+    margin-bottom: 2rem;
+}
+
+summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+
+details[open] {
+    padding: 0.5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid ;
+    margin-bottom: 0.5em;
+}
