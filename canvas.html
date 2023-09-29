@@ -6,37 +6,52 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-<canvas style="color:red" id="canvas" width="460" height="210">
+<canvas id="canvas" >
 
 </canvas>
 </body>
+<style>
+    #canvas{
+        margin: 2rem auto;
+        display: block;
+        border: 2px solid currentColor;
+     
+    }
+</style>
 <script>
     const canvas = document.getElementById("canvas");
-
-
     const ctx = canvas.getContext("2d");
-    ctx.font = "16px sans-serif";
-    ctx.textAlign = "center";
 
-    ctx.fillStyle = 'currentColor';
+   const  MARKET_BG_COLOR_INCREASED = '#92C73840'
+   const  MARKET_BG_COLOR_DECREASED = '#FF575B40'
+   const  MARKET_BG_COLOR_DEFAULT = '#293C61'
 
-    const img = new Image();
-    img.src =
-        "./img/star.png";
-    img.onload = () => {
-        const w = img.width,
-            h = img.height;
+    function fillCanvas(  ) {
 
-        ctx.fillText("Source", w * 0.5, 20);
-        ctx.drawImage(img, 0, 24, w, h);
+       const height = 50;
+       const width =  canvas.width;
+       
+       ctx.fillStyle  = MARKET_BG_COLOR_DEFAULT;
 
-        ctx.fillText("Smoothing = TRUE", w * 2.5, 20);
-        ctx.imageSmoothingEnabled = true;
-        ctx.drawImage(img, w, 24, w * 3, h * 3);
+       ctx.fillRect(0, 0, width, height * 3);
 
-        ctx.fillText("Smoothing = FALSE", w * 5.5, 20);
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(img, w * 4, 24, w * 3, h * 3);
-    };
+       ctx.fillStyle =  MARKET_BG_COLOR_INCREASED;
+
+       ctx.fillRect(0, height , width, height);
+       
+       ctx.fillStyle =  MARKET_BG_COLOR_DECREASED;
+
+       ctx.fillRect(0, height * 2 , width, height);
+
+    }
+
+    fillCanvas( MARKET_BG_COLOR_DEFAULT);
+
+    // setTimeout( ()=>{
+    //     fillCanvas( MARKET_BG_COLOR_DEFAULT , MARKET_BG_COLOR_INCREASED)
+    // },2000 )
+
+
+
 </script>
 </html>
