@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<canvas id="canvas" >
+
+</canvas>
+</body>
+<style>
+    #canvas{
+        margin: 2rem auto;
+        display: block;
+        border: 2px solid currentColor;
+     
+    }
+</style>
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+   const  MARKET_BG_COLOR_INCREASED = '#92C73840'
+   const  MARKET_BG_COLOR_DECREASED = '#FF575B40'
+   const  MARKET_BG_COLOR_DEFAULT = '#293C61'
+
+    function fillCanvas(  ) {
+
+       const height = 50;
+       const width =  canvas.width;
+       
+       ctx.fillStyle  = MARKET_BG_COLOR_DEFAULT;
+
+       ctx.fillRect(0, 0, width, height * 3);
+
+       ctx.fillStyle =  MARKET_BG_COLOR_INCREASED;
+
+       ctx.fillRect(0, height , width, height);
+       
+       ctx.fillStyle =  MARKET_BG_COLOR_DECREASED;
+
+       ctx.fillRect(0, height * 2 , width, height);
+
+    }
+
+    fillCanvas( MARKET_BG_COLOR_DEFAULT);
+
+    // setTimeout( ()=>{
+    //     fillCanvas( MARKET_BG_COLOR_DEFAULT , MARKET_BG_COLOR_INCREASED)
+    // },2000 )
+
+
+
+</script>
+</html>
