@@ -1,2 +1,7 @@
 
-document.querySelector('body')
+
+export default function () {
+
+     document.querySelector('body')
+
+}
