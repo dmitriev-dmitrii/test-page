@@ -1,4 +1,15 @@
-console.log('hui')
+import navBar from "./navBar.js";
+console.log( ('navigator :' + window.navigator.userAgent ));
+console.log( ('devicePixelRatio:' +  window.devicePixelRatio));
+navBar()
 
-// alert ('navigator :' + window.navigator.userAgent ) 
-// alert ('devicePixelRatio:' +  window.devicePixelRatio) 
+function  a(abc) {
+
+    console.trace();
+}
+a()
+
+function name(params) {
+    a()
+}
+name()
