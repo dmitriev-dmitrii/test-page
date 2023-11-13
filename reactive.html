@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+
+<h1>Proxy Reactive</h1>
+
+<div class="wrapper">
+
+    <fieldset>
+
+        <form id="todo-form">
+            <legend> <h3>add todo</h3> </legend>
+            <label>
+                <span>todo title</span>
+                <input id="todo-input" />
+            </label>
+
+            <div style="margin-left: auto">
+                <button type="reset">reset</button>
+                <button type="submit">submit</button>
+            </div>
+
+        </form>
+
+    </fieldset>
+    <div class="todo-list__wrapper">
+        <h3>todo list</h3>
+         <ul id="todo-list">
+
+         </ul>
+    </div>
+
+    <div id="app"></div>
+</div>
+</body>
+
+
+<script defer type="module">
+    import Rue from './reactive.js'
+
+
+    var app = new Rue({
+        selector: '#app',
+        data: {
+            input: 'My Todos',
+            todos: ['buy bread']
+        },
+        template: function (props) {
+            return `
+			<ul>
+				${props.todos.map(function (todo) {
+                return `<li>${todo}</li>`;
+            }).join('')}
+			</ul>`;
+        }
+    });
+    
+    app.render();
+
+    const todoFormHandle = (e)=> {
+        e.preventDefault()
+        app.data.todos.push(app.data.input);
+        e.target.reset()
+    }
+    const todoInputHandle = (e)=> {
+        e.preventDefault()
+        app.data.input = e.target.value
+    }
+
+    document.getElementById('todo-form').addEventListener('submit',todoFormHandle)
+    document.getElementById('todo-input').addEventListener('input',todoInputHandle)
+
+</script>
+
+<style>
+
+</style>
+</html>
