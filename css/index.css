@@ -2,30 +2,52 @@
 
 *{
     box-sizing: border-box;
+    outline-offset: .25rem;
 }
-html{
+
+html {
     color-scheme: dark;
-    font: 15px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-style:"Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 10px;
 }
 
 body {
+    font-size: 1.5em;
     margin: 0;
     padding: 2rem;
 }
 
 button {
-    padding:  0.45rem 1.25rem;
+    padding:  0.5rem 1.25rem;
     border-radius:0.25rem ;
     border: 1px solid;
     font-weight: bold;
+    cursor: pointer;
 }
 
 a {
     color: #00B7FF;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    transition: border-bottom 0.2s ease;
 }
 
 a:visited {
     color: #00B7FF;
+}
+
+
+@media (hover: hover) {
+    a:hover,
+    a:focus{
+        border-bottom: 1px solid currentColor;
+    }
+}
+
+@media(hover: none) {
+    a:active{
+        border-bottom: 1px solid currentColor;
+    }
 }
 
 details {
@@ -71,4 +93,13 @@ input {
     display: block;
     width: 100%;
     padding:  0.25rem 1rem;
+}
+
+ ul{
+    padding: 0 0 0 0rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    list-style-position:inside;
 }
