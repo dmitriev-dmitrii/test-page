@@ -7,7 +7,7 @@ const navSourceList =  [
           {href:"reactive.html",text:"Reactive"},
      ]
 
-export default function () {
+export default (function () {
      
    const liArr = navSourceList.map(({href,text})=> `<li><a href="${href}">${text}</a></li>`).join('')
 
@@ -26,4 +26,4 @@ export default function () {
    header = document.createElement('header')
    header.append(nav)
    document.querySelector('body').prepend(header)
-}
+})()
