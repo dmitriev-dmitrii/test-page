@@ -100,6 +100,5 @@ input {
 }
 
 li {
-    margin-bottom: 0.5rem;
-    list-style-position:inside;
+    margin: 0 0 0.5rem 2rem;
 }
