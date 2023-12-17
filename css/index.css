@@ -7,7 +7,7 @@
 
 html {
     color-scheme: dark;
-    font-style:"Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: system-ui , sans-serif;
     font-size: 10px;
 }
 
