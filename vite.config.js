@@ -7,5 +7,6 @@ export default {
         handlebars({
             root: './src'
         })
-    ]
+    ],
+    base:'/demo-pages'
 }
