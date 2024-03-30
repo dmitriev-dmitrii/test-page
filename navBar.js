@@ -1,10 +1,11 @@
 
 const navSourceList =  [
           {href:"index.html",text:"Home"},
+          {href:"device-data.html",text:"Device Data"},
           {href:"dates.html",text:"Dates"},
           {href:"flex-gap.html",text:"Flex Gap"},
           {href:"canvas.html",text:"Canvas"},
-          {href:"reactive.html",text:"Reactive"},
+          {href:"rue.html",text:"Rue"},
      ]
 
 export default (function () {

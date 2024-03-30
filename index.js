@@ -1,7 +1,6 @@
 import navBar from "./navBar.js";
 
 
-
 var createReactive = function (obj, onSet) {
 
     obj = obj || {};
