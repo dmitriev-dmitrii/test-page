@@ -1,0 +1,11 @@
+{
+  "template": "layouts/default.hbs",
+  "navigation": [
+    {"label":"Home","href":"./"},
+    {"label":"Device Data","href":"./device-data.html"},
+    {"label":"Flex Gap","href":"./flex-gap.html"},
+    {"label":"Dates","href":"./dates.html"},
+    {"label":"Canvas","href":"./canvas.html"},
+    {"label":"Rue","href":"./rue.html"}
+  ]
+}

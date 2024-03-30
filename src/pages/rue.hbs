@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-	<link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-
-<div class="todo-wrapper">
-    <h1>Proxy Reactive Rue</h1>
+{{> "layouts/default.hbs"}}
+<h1>Rue</h1>
+<h2>reactive proxy JS</h2>
+<main class="todo-wrapper">
     <fieldset>
-
         <form id="todo-form">
             <legend> <h3>add todo</h3> </legend>
             <label>
@@ -22,9 +14,7 @@
                 <button type="reset">reset</button>
                 <button type="submit">submit</button>
             </div>
-
         </form>
-
     </fieldset>
     <div class="todo-list__wrapper">
         <h3>todo list</h3>
@@ -34,14 +24,13 @@
     </div>
 
     <div id="app"></div>
-</div>
-<script src="index.js" type="module" defer></script>
-</body>
-
+</main>
 
 <script defer type="module">
-    import Rue from './Rue.js'
 
+
+
+    import Rue from "/src/js/Rue.js";
 
     var app = new Rue({
         selector: '#app',

@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-	<link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-
-
-
-<div class="content__wrapper">
-
-<h1>flex gap</h1>
+{{> "layouts/default.hbs"}}
+<h1> Flex gap / margin </h1>
+<main class="content__wrapper">
 <label>
     blockIsActive
     <input type="checkbox" id="blockIsActiveCheckbox" checked="true" >
@@ -26,11 +15,8 @@
     <div class="child">1</div>
     <div class="child">2 active-checkbox</div>
 </div>
-</div>
+</main>
 
-
-<script src="index.js" type="module" defer></script>
-</body>
 <script>
     const flexDivs = document.querySelectorAll('.flex')
     const blockIsActiveCheckbox = document.getElementById('blockIsActiveCheckbox')
@@ -104,4 +90,3 @@ label {
     color: white;
 }
 </style>
-</html>

@@ -1,0 +1,14 @@
+{{> "layouts/default.hbs"}}
+<h1>Device Data</h1>
+<main>
+
+	<ul id="device-data"></ul>
+	<script>
+		const deviceData =  `
+		<li><b> devicePixelRatio:</b> ${window.devicePixelRatio} </li>
+		<li><b> userAgent:</b> ${window.navigator.userAgent} </li>
+		`
+	document.getElementById('device-data').innerHTML = deviceData
+	</script>
+</main>
+
