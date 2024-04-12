@@ -7,18 +7,18 @@
 // }
 //
 //
-// const routes = {
+// const router = {
 //
 // };
 //
 //
 // async  function handleLocation () {
 //     const path = window.location.pathname;
-//     // const route = routes[path] || routes[404];
+//     // const route = router[path] || router[404];
 //
 //     if  (path === '/lorem') {
 //
-//         document.getElementById("router-view").innerHTML = routes[path] || routes[404];
+//         document.getElementById("router-view").innerHTML = router[path] || router[404];
 //
 //         return
 //     }
@@ -44,9 +44,9 @@
 // }
 //
 // class Router {
-//     routes = {}
+//     router = {}
 //     constructor(payload) {
-//         this.routes = payload.routes
+//         this.router = payload.router
 //     }
 //     push (route) {
 //         console.log(route)

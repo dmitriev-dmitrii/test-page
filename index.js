@@ -1,13 +1,73 @@
-// import Router from './src/js/Router.js'
-// import {useCityStore} from './src/js/Store.js'
-//
-// import routes from './src/routes'
-//
-// Router(routes)
-//
-// console.log(document.title)
-// document.title = 'test'
-// console.log(document.title)
+import Router from './hueackt/router'
+
+
+class RouterPage {
+    constructor(params) {
+        this.params = params;
+    }
+
+    setTitle(title) {
+        document.title = title;
+    }
+
+    async getHtml() {
+        return "";
+    }
+}
+class Home extends RouterPage {
+    constructor(params) {
+        super(params);
+        this.setTitle("Home");
+    }
+
+    async getHtml() {
+        return `
+            <h1>Home</h1>
+        `;
+    }
+}
+
+class Posts extends RouterPage {
+    constructor(params) {
+        super(params);
+        this.setTitle("Posts");
+    }
+
+    async getHtml() {
+        return `
+            <h1>Posts</h1>
+            <p>You are viewing the posts!</p>
+            <router-link path="/posts/1"> to post 1 </router-link>
+        `;
+    }
+}
+
+class Post extends RouterPage {
+    constructor(params) {
+        super(params);
+        this.postId = params.id;
+        this.setTitle("Viewing Post");
+    }
+
+    async getHtml() {
+        return `
+            <h1>Post</h1>
+            <p>You are viewing post #${this.postId}.</p>
+        `;
+    }
+}
+
+
+
+const routes = [
+    { path: "/", view: Home  },
+    { path: "/posts", view: Posts },
+    { path: "/posts/:id", view: Post },
+];
+
+const {initRouter} = new Router()
+
+initRouter({routes} )
 
 //
 // const {state,proxyArr} = useCityStore()

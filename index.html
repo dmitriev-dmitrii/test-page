@@ -9,12 +9,12 @@
   <body>
 
   <nav class="nav">
-    <a href="/" class="nav__link" data-link>Dashboard</a>
-    <a href="/posts" class="nav__link" data-link>Posts</a>
-    <a href="/settings" class="nav__link" data-link>Settings</a>
+    <router-link path="/home" disabled> Home </router-link>
+    <router-link path="/posts"> posts </router-link>
   </nav>
-  <div id="app"></div>
-  <script type="module" src="./lib/router.js"></script>
+
+  <div id="router-view"></div>
+  <script type="module" src="./index.js"></script>
 
   </body>
 </html>
