@@ -1,120 +1,77 @@
-import Router from './hueackt/router'
+import Router from './vanila-router'
+import routes from "@/router/index.js";
+import './src/css/index.css'
 
-
-class RouterPage {
-    constructor(params) {
-        this.params = params;
-    }
-
-    setTitle(title) {
-        document.title = title;
-    }
-
-    async getHtml() {
-        return "";
-    }
-}
-class Home extends RouterPage {
-    constructor(params) {
-        super(params);
-        this.setTitle("Home");
-    }
-
-    async getHtml() {
-        return `
-            <h1>Home</h1>
-        `;
-    }
-}
-
-class Posts extends RouterPage {
-    constructor(params) {
-        super(params);
-        this.setTitle("Posts");
-    }
-
-    async getHtml() {
-        return `
-            <h1>Posts</h1>
-            <p>You are viewing the posts!</p>
-            <router-link path="/posts/1"> to post 1 </router-link>
-        `;
-    }
-}
-
-class Post extends RouterPage {
-    constructor(params) {
-        super(params);
-        this.postId = params.id;
-        this.setTitle("Viewing Post");
-    }
-
-    async getHtml() {
-        return `
-            <h1>Post</h1>
-            <p>You are viewing post #${this.postId}.</p>
-        `;
-    }
-}
+const router = new Router({routes})
 
 
 
-const routes = [
-    { path: "/", view: Home  },
-    { path: "/posts", view: Posts },
-    { path: "/posts/:id", view: Post },
-];
 
-const {initRouter} = new Router()
-
-initRouter({routes} )
-
-//
-// const {state,proxyArr} = useCityStore()
-//
-// // proxyArr = []
-// // console.log(state.items)
-// // console.log(state.items.push({gg:2}))
-//
-//
-// let handlers = Symbol('handlers');
-//
-// function makeObservable(target) {
-//     // 1. Создадим хранилище обработчиков
-//     target[handlers] = [];
-//
-//     // положим туда функции-обработчики для вызовов в будущем
-//     target.observe = function(handler) {
-//         this[handlers].push(handler);
-//     };
-//
-//     const handler = {
-//         set(target, property, value, receiver) {
-//             let success = Reflect.set(...arguments); // перенаправим операцию к оригинальному объекту
-//             if (success) { // если не произошло ошибки при записи свойства
-//                 // вызовем обработчики
-//                 target[handlers].forEach(handler => handler(property, value));
-//             }
-//             return success;
-//         }
+// chrome.runtime.sendMessage({
+//         action: "content.js inited"
+//     }, e=>{
+//         if (!e)
+//             return;
+//         const t = e.data;
+//         t.css.length && i({
+//             type: "css",
+//             content: t.css.join(`
+// `)
+//         }),
+//             Promise.allSettled(t.libs.map(s=>i({
+//                 url: s
+//             }))).then(()=>{
+//                     d(()=>{
+//                             for (const s of t.js)
+//                                 i({
+//                                     type: "js",
+//                                     target: document.body,
+//                                     content: s
+//                                 })
+//                         }
+//                     )
+//                 }
+//             )
 //     }
-//
-//     // 2. Создадим прокси для реакции на изменения
-//     return new Proxy(target, handler);
+// );
+// function d(e) {
+//     const t = window.document;
+//     t.readyState !== "complete" && t.readyState !== "interactive" ? t.onreadystatechange = ()=>{
+//             t.readyState === "interactive" && e()
+//         }
+//         : e()
 // }
-//
-// let user = {
-//     items:[1]
-// };
-//
-// user = makeObservable(user);
-//
-// user.observe((key, value) => {
-//    console.log(`SET ${key}=${value}`);
-// });
-//
-// user.items.push(2);
-//
-// user.name = 'ss'
-//
-// user.items = []
+// function l(e) {
+//     return Array.from(document.querySelectorAll("script, link")).map(s=>s.src || s.href).includes(e)
+// }
+// function i({url: e="", content: t="", type: s="", target: c=document.head}) {
+//     return new Promise((a,o)=>{
+//             let n = null;
+//             const r = e ? new URL(e).pathname.split(".").pop().split("?")[0] : s;
+//             if (e && l(e)) {
+//                 a();
+//                 return
+//             }
+//             if (r === "js")
+//                 n = document.createElement("script"),
+//                     n.async = !1,
+//                 e && n.setAttribute("src", e),
+//                 t && (n.innerHTML = t);
+//             else if (r === "css" && e)
+//                 n = document.createElement("link"),
+//                     n.type = "text/css",
+//                     n.rel = "stylesheet",
+//                     n.setAttribute("href", e);
+//             else if (s === "css" && t)
+//                 n = document.createElement("style"),
+//                     n.appendChild(document.createTextNode(t));
+//             else {
+//                 o("Unsupported", e, t, s, c);
+//                 return
+//             }
+//             n.setAttribute("data-source", "User JavaScript and CSS extension"),
+//                 n.onload = ()=>a(),
+//                 c.appendChild(n)
+//         }
+//     )
+// }

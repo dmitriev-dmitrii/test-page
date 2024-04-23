@@ -8,13 +8,61 @@
   </head>
   <body>
 
-  <nav class="nav">
-    <router-link path="/home" disabled> Home </router-link>
-    <router-link path="/posts"> posts </router-link>
+  <header>
+  <nav class="app-nav">
+    <ul>
+      <li>
+        <router-link path="/home" name="home" > Home </router-link>
+      </li>
+      <li>
+        <router-link path="/home" name="home" disabled> Disabled </router-link>
+      </li>
+      <li>
+        <router-link path="/posts" name="posts"> Posts </router-link>
+      </li>
+
+      <li>
+        <router-link path="/flex-gap"> Flex Gap </router-link>
+      </li>
+      <li>
+        <router-link path="/lorem" name="lorem"> Lorem </router-link>
+      </li>
+      <li>
+        <a href="/lorem">lorem</a>
+      </li>
+    </ul>
   </nav>
+  </header>
+
+  <style>
+    nav.app-nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav.app-nav  li {
+      margin:0  0.5rem 0 0;
+      padding: 0.15rem 0.30rem;
+    }
+
+    nav.app-nav a {
+      font-size: 1.1em;
+      display: block;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+  </style>
 
   <div id="router-view"></div>
-  <script type="module" src="./index.js"></script>
+
+<!--  <router-view></router-view>-->
+
+<div id="1"></div>
+  <script defer type="module" src="./index.js"></script>
 
   </body>
+
 </html>

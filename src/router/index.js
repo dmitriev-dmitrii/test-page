@@ -1,25 +1,36 @@
 
-// console.log(document.title)
-// document.title = 'test'
-// console.log(document.title)
+import lorem from "@/pages/lorem.html";
+import flexGap from "@/pages/flex-gap.html";
 
-// export default [
-//     {
-//         path:'',
-//         name:'',
-//         title:'',
-//         component:''
-//     }
-// ]
+const routes = [
 
-
-import lorem from "../../pages/lorem.js";
-
-const routes = {
-    404: "./pages/error/404.html",
-    "/": "./pages/index.html",
-    "/about": "./pages/about.html",
-    "/lorem": lorem,
-};
+    {
+        path: "/",
+        name:'Home',
+        component: '<h1> home !</h1>'
+    },
+    {
+        path: "/posts",
+        name:'   Posts',
+        component: '<h1> post !</h1> <p> <router-link path="/posts/1"> Post 1 </router-link> </p>'
+    },
+    {
+        path: "/posts/:id",
+        name:'post',
+        component: '<h1> posts !</h1> '
+    },
+    {
+        title: 'flex gap',
+        component : flexGap,
+        name :'flexGap',
+        path: "/flex-gap"
+    },
+    {
+        title: 'lorem title',
+        component : lorem,
+        name :'lorem',
+        path: "/lorem"
+    }
+];
 
 export default  routes
