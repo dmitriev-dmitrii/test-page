@@ -1,4 +1,7 @@
+
+
 let routesNamesMap = new Map()
+let  routesRegexpPathMap = new Map()
 
 let routerViewDom = undefined
 let currentRoute = {}
@@ -9,7 +12,9 @@ const routes = [{
     component: '<h1> 404 Not Found </h1>'
 }]
 
-// const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+const buildPathRegex = (path) => {
+    return new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+}
 
 // const getParams = match => {
 //     const values = match.result.slice(1);
@@ -20,21 +25,24 @@ const routes = [{
 //     }));
 // };
 
-
 const findRoute =  ( {path = '', name = '' } )=> {
 
-    if (name) {
-        return  routesNamesMap.get(name.trim().toLowerCase())
+    if (path) {
+
+        const r = Array.from(routesRegexpPathMap.keys()).filter((item)=> {
+           return  item.test(path)
+        })
+
+        const route = routesRegexpPathMap.get(r[0])
+
+        if ( route ) {
+             return route
+        }
     }
 
-    //search by path
-    const route   =  routes.find((item)=> {
-        // TODO dynamic route , params? :id
-        return item.path === path
-    })
-
-    if (route) {
-        return route
+    if (name) {
+        // search by name
+        return  routesNamesMap.get(name.trim().toLowerCase())
     }
 
         // TODO переделать на страницу ошибки c props кодом ошибки
@@ -79,6 +87,8 @@ const renderRouterView = async () => {
 
             scriptRaw.replaceWith( scriptRaw,script )
         }
+
+        routerViewDom.innerHTML = ''
 
         routerViewDom.append.apply( routerViewDom , template.children )
 
@@ -149,11 +159,15 @@ export const init = (routesArr) => {
 
         item.name = item.name.toLowerCase().trim()
 
-        const { name } = item
+        const { name,path } = item
         routes.push(item)
 
         if (name) {
             routesNamesMap.set( name , item )
+        }
+
+        if (path) {
+            routesRegexpPathMap.set(buildPathRegex (path) , item)
         }
 
     })
