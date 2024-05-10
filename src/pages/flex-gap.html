@@ -1,9 +1,13 @@
+
 <h1> Flex gap / margin </h1>
 <main class="content__wrapper">
-  <label>
-    blockIsActive
-    <input type="checkbox" id="blockIsActiveCheckbox" checked="true" >
-  </label>
+  <div class="input">
+    <label>
+      blockIsActive
+      <input type="checkbox" id="blockIsActiveCheckbox" checked >
+    </label>
+  </div>
+
   <h2>Flex Gap</h2>
   <div class="flex gap">
     <div class="child">1</div>
@@ -16,31 +20,30 @@
   </div>
 </main>
 
-<script>
-  const flexDivs = document.querySelectorAll('.flex')
-  const blockIsActiveCheckbox = document.getElementById('blockIsActiveCheckbox')
-  blockIsActiveCheckbox.addEventListener('change',blockIsActivecheckboxHandle)
+<script defer type="module"  id="123">
 
-  function blockIsActivecheckboxHandle ( e ) {
-    const val =  e.target.checked
+  const flexDivs = document.querySelectorAll('.flex');
+  const blockIsActiveCheckbox = document.getElementById('blockIsActiveCheckbox');
+  blockIsActiveCheckbox.addEventListener('change',changeCheckboxHandle);
+
+  function changeCheckboxHandle ( e ) {
+    const val =  e.target.checked;
     if (val) {
       flexDivs.forEach((item)=>{
-        item.classList.remove('active-checkbox')
-      })
+        item.classList.remove('active-checkbox');
+      });
 
-      return
+      return;
     }
 
     flexDivs.forEach((item)=>{
-      item.classList.add('active-checkbox')
+      item.classList.add('active-checkbox');
     })
   }
 
 
 </script>
 <style>
-
-
   .content__wrapper {
     display: flex;
     align-items: stretch;
@@ -53,12 +56,18 @@
     padding: 1rem;
   }
 
-  label {
+  .input {
     display: flex;
-    align-items: center;
-    cursor: pointer;
   }
+
+  label {
+    cursor: pointer;
+    display: flex;
+    flex: 0;
+  }
+
   label input {
+    flex: 0;
     cursor: pointer;
   }
 
@@ -81,7 +90,6 @@
   .custom .child {
     margin: 0 .5rem;
   }
-
   .child {
     flex: 1;
     padding: 1rem;

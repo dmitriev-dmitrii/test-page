@@ -2,6 +2,7 @@ let routesNamesMap = new Map()
 
 let routerViewDom = undefined
 let currentRoute = {}
+
 const routes = [{
     path: "/404",
     name:'Not-Found',
@@ -59,14 +60,28 @@ const renderRouterView = async () => {
 
     if (typeof component  === "function") {
 
-        const html = await component()
-        // routerViewDom.innerHTML = html
-        const documentFragment = document.createRange().createContextualFragment(html);
-        routerViewDom.innerHTML = ''
+        const template = document.createElement('div')
+        template.innerHTML =  await component()
 
-        // console.log(documentFragment.children)
-        routerViewDom.append(documentFragment)
-        // routerViewDom.innerHTML = scriptEl
+        const scriptRaw = template.querySelector('script')
+        // scriptRaw скрипт не работает поэтому перезаписываем
+
+        if (scriptRaw) {
+             const script = document.createElement("script")
+             script.innerText =    scriptRaw.innerText.trim()
+
+            // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap
+
+            Array.from(scriptRaw.attributes).forEach((item)=> {
+
+                return   script.attributes.setNamedItemNS(item.cloneNode(true))
+            })
+
+            scriptRaw.replaceWith( scriptRaw,script )
+        }
+
+        routerViewDom.append.apply( routerViewDom , template.children )
+
         return
     }
 
@@ -109,8 +124,15 @@ export const push = async  (payload) => {
     const {params} = payload
 
     currentRoute = findRoute(payload)
+    const {path} =  currentRoute
 
-    window.history.pushState(null, null, currentRoute.path );
+
+    if (!currentRoute?.path) {
+        console.err( `currentRoute is ${ path }`  )
+        return
+    }
+
+    window.history.pushState(null, null, path );
 
     await  renderRouterView();
 };
@@ -142,7 +164,6 @@ export const init = (routesArr) => {
 
     document.addEventListener("DOMContentLoaded", () => {
         routerViewDom  = document.querySelector("#router-view")
-
         renderRouterView();
     });
 }

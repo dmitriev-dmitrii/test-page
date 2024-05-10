@@ -3,9 +3,42 @@ import routes from "@/router/index.js";
 import './src/css/index.css'
 
 const router = new Router({routes})
+//
+// (function(d, s) {
+//     var j, h = d.getElementsByTagName(s)[0],
+//         f = d.createDocumentFragment(),
+//         add = function(u, i) {
+//             if (d.getElementById(i)) {
+//                 return;
+//             }
+//             j = d.createElement(s);
+//             j.src = u;
+//             i && (j.id = i);
+//             f.appendChild(j);
+//         };
+//
+//     add('/myjs.js');
+//     h.parentNode.insertBefore(f, h);
+// }(document, 'script'));
 
 
-
+// function add ({id,src}) {
+//   // const fragment = new DocumentFragment()
+//   //   console.log(fragment)
+//   //            const  tag = fragment.createElement('div');
+//   //           // tag.src = u;
+//   //
+//   //           // tag.appendChild(src);
+//   //
+//   //           document.body.append(fragment)
+//
+//     const s = document.createElement("script")
+//     s.innerText = src
+//     document.body.append(s)
+// };
+//
+//
+// add({id:'hello', src:` console.log("hello")`})
 
 // chrome.runtime.sendMessage({
 //         action: "content.js inited"
