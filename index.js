@@ -1,4 +1,4 @@
-import Router from './vanila-router'
+import Router from './Router'
 import routes from "@/router/index.js";
 import './src/css/index.css'
 

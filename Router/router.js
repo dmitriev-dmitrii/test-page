@@ -1,4 +1,7 @@
+
+
 let routesNamesMap = new Map()
+let routesRegexpPathMap = new Map()
 
 let routerViewDom = undefined
 let currentRoute = {}
@@ -9,7 +12,9 @@ const routes = [{
     component: '<h1> 404 Not Found </h1>'
 }]
 
-// const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+const buildPathRegex = (path) => {
+    return new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+}
 
 // const getParams = match => {
 //     const values = match.result.slice(1);
@@ -20,21 +25,24 @@ const routes = [{
 //     }));
 // };
 
-
 const findRoute =  ( {path = '', name = '' } )=> {
 
-    if (name) {
-        return  routesNamesMap.get(name.trim().toLowerCase())
+    if (path) {
+
+        const r = Array.from(routesRegexpPathMap.keys()).filter((item)=> {
+           return  item.test(path)
+        })
+
+        const route = routesRegexpPathMap.get(r[0])
+
+        if ( route ) {
+             return route
+        }
     }
 
-    //search by path
-    const route   =  routes.find((item)=> {
-        // TODO dynamic route , params? :id
-        return item.path === path
-    })
-
-    if (route) {
-        return route
+    if (name) {
+        // search by name
+        return  routesNamesMap.get(name.trim().toLowerCase())
     }
 
         // TODO переделать на страницу ошибки c props кодом ошибки
@@ -47,16 +55,6 @@ const findRoute =  ( {path = '', name = '' } )=> {
 const renderRouterView = async () => {
 
     const {component} = currentRoute
-
-    // if (typeof component === 'string' && component.endsWith('html')) {
-    //
-    //     const data =       await fetch(component).then((res) => res.text())
-    //
-    //
-    //     // const scriptEl = document.createRange().createContextualFragment(html);
-    //     // document.getElementById('1').append(scriptEl)
-    //     return
-    // }
 
     if (typeof component  === "function") {
 
@@ -79,6 +77,8 @@ const renderRouterView = async () => {
 
             scriptRaw.replaceWith( scriptRaw,script )
         }
+
+        routerViewDom.innerHTML = ''
 
         routerViewDom.append.apply( routerViewDom , template.children )
 
@@ -124,13 +124,16 @@ export const push = async  (payload) => {
     const {params} = payload
 
     currentRoute = findRoute(payload)
-    const {path} =  currentRoute
 
+    const {path,pathRegexp} =  currentRoute
 
-    if (!currentRoute?.path) {
-        console.err( `currentRoute is ${ path }`  )
-        return
-    }
+    const currentRouteUrl = window.location.pathname
+
+    console.log('currentRouteUrl', currentRouteUrl)
+    console.log(pathRegexp)
+    const  a =    currentRouteUrl.match(/:(\w+)/g)
+
+    console.log(a)
 
     window.history.pushState(null, null, path );
 
@@ -149,12 +152,14 @@ export const init = (routesArr) => {
 
         item.name = item.name.toLowerCase().trim()
 
-        const { name } = item
-        routes.push(item)
+        const { name,path } = item
 
-        if (name) {
-            routesNamesMap.set( name , item )
-        }
+        const  pathRegexp = buildPathRegex (path)
+        item.pathRegexp = pathRegexp
+
+        routesNamesMap.set( name , item )
+        routesRegexpPathMap.set( pathRegexp, item)
+        routes.push(item)
 
     })
 
