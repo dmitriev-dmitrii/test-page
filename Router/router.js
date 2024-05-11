@@ -1,3 +1,4 @@
+import {buildPathRegExp} from "./utils/buildPathRegexp.js";
 
 
 let routesNamesMap = new Map()
@@ -12,43 +13,26 @@ const routes = [{
     component: '<h1> 404 Not Found </h1>'
 }]
 
-const buildPathRegex = (path) => {
-    return new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
-}
-
-// const getParams = match => {
-//     const values = match.result.slice(1);
-//     const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
-//
-//     return Object.fromEntries(keys.map((key, i) => {
-//         return [key, values[i]];
-//     }));
-// };
-
 const findRoute =  ( {path = '', name = '' } )=> {
 
-    if (path) {
-
-        const r = Array.from(routesRegexpPathMap.keys()).filter((item)=> {
-           return  item.test(path)
-        })
-
-        const route = routesRegexpPathMap.get(r[0])
-
-        if ( route ) {
-             return route
-        }
-    }
-
-    if (name) {
+    if (name && !path) {
         // search by name
         return  routesNamesMap.get(name.trim().toLowerCase())
     }
 
-        // TODO переделать на страницу ошибки c props кодом ошибки
-       return    routes.find((item)=> {
-        return item.path === '/404'
-    })
+     const r = Array.from(routesRegexpPathMap.keys()).filter((item)=> {
+            return  item.test(path)
+     })
+
+     const route = routesRegexpPathMap.get(r[0])
+
+     if ( route ) {
+         return route
+     }
+
+     // TODO переделать на страницу ошибки c props кодом ошибки
+     return    routes.find((item)=> item.path === '/404')
+
 }
 
 
@@ -88,58 +72,22 @@ const renderRouterView = async () => {
     routerViewDom.innerHTML =  component || ''
 
     // TODO router children
-    // // Test each route for potential match
-    // const potentialMatches = routes.map(route => {
-    //     return {
-    //         route: route,
-    //         result: location.pathname.match(pathToRegex(route.path))
-    //     };
-    // });
-    //
-    // let match = potentialMatches.find(potentialMatch => potentialMatch.result !== null);
-    //
-    // if (!match) {
-    //     match = {
-    //         route: routes[0],
-    //         result: [location.pathname]
-    //     };
-    // }
-    //
-    // const view = new match.route.view(getParams(match));
-    //
-    // console.log(currentRoute)
-    // routerView.innerHTML = await view.getHtml();
 
-
-    // console.log(location.pathname)
-
-    // const
-    // console.log('currentRoute',currentRoute.view)
-    // console.log(currentRoute.view)
-    // routerView.innerHTML =  await currentRoute.view.getHtml()
 };
 
 export const push = async  (payload) => {
 
-    const {params} = payload
+    const {params, path } = payload
 
     currentRoute = findRoute(payload)
 
-    const {path,pathRegexp} =  currentRoute
+    console.log(path)
+    console.log('currentRoute',currentRoute)
 
-    const currentRouteUrl = window.location.pathname
-
-    console.log('currentRouteUrl', currentRouteUrl)
-    console.log(pathRegexp)
-    const  a =    currentRouteUrl.match(/:(\w+)/g)
-
-    console.log(a)
-
-    window.history.pushState(null, null, path );
+    window.history.pushState(null, null, path || currentRoute.path );
 
     await  renderRouterView();
 };
-
 
 const onWindowPopState = async ( e ) => {
     currentRoute = findRoute({ path : window.location.pathname })
@@ -154,16 +102,21 @@ export const init = (routesArr) => {
 
         const { name,path } = item
 
-        const  pathRegexp = buildPathRegex (path)
+        const  pathRegexp = buildPathRegExp(path)
         item.pathRegexp = pathRegexp
 
         routesNamesMap.set( name , item )
         routesRegexpPathMap.set( pathRegexp, item)
+
         routes.push(item)
 
     })
 
     currentRoute = findRoute({ path : window.location.pathname })
+
+    // const {pathRegexp} = currentRoute
+    //
+
 
     window.onpopstate = onWindowPopState;
 

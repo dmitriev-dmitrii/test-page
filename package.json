@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "make clean-dist && npm i && vite",
     "build": "make clean-dist && vite build",
-    "preview": "vite build --mode development && vite preview --mode development"
+    "preview": "vite build --mode development && vite preview --mode development",
+    "test": "vitest",
+    "test-coverage": "vitest run"
   },
   "devDependencies": {
-    "vite": "^5.2.0"
-  },
-  "dependencies": {
-    "vanilla-router": "^1.2.8"
+    "vite": "^5.2.0",
+    "vitest": "^1.6.0"
   }
 }
