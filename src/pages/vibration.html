@@ -1,0 +1,75 @@
+<h1>Vibration API</h1>
+
+<main>
+
+<p>
+    navigator.vibrate is available ? <span id="vibration-api-flag"></span>
+</p>
+
+    <div id="vibration-action-bar">
+
+    </div>
+
+
+</main>
+<script>
+
+    // navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+    const isAvailableVibrate    =  !!navigator?.vibrate;
+
+    const vibrationApiFlag =     document.getElementById('vibration-api-flag');
+    vibrationApiFlag .innerText = isAvailableVibrate ? 'yes' : 'no';
+    const vibrationActionBar =     document.getElementById('vibration-action-bar');
+
+
+
+    const vibrateValuesMap = {
+      'dart-vader' :  [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40, 500],
+      'super-mario':[125,75,125,275,200,275,125,75,125,275,200,600,200,600],
+      'james-bond':[200,100,200,275,425,100,200,100,200,275,425,100,75,25, 75,125,75,25,75,125,100,100]
+    };
+    function startVibrate(event) {
+
+        const vibrateValue = vibrateValuesMap[event.currentTarget.id]
+
+        if ( vibrateValue && isAvailableVibrate ) {
+            navigator.vibrate( vibrateValue );
+        }
+
+    }
+
+    for (const key in vibrateValuesMap) {
+
+          const btn =   document.createElement('button')
+            btn.setAttribute('id', key)
+            btn.innerText = key
+            btn.classList.add('vibration-play')
+            btn.addEventListener('click', startVibrate);
+            vibrationActionBar.append(btn)
+
+        if ( isAvailableVibrate ) {
+            btn.setAttribute('disabled','true');
+        }
+
+    }
+
+    // if (isAvailableVibrate) {
+    //     // vibration API supported
+    //     document.body.addEventListener('click', function(ev){
+    //         console.log('body clicked. Time to shake.');
+    //         //navigator.vibrate(1000);
+    //         navigator.vibrate([500, 300, 100]);
+    //         //navigator.vibrate(0);
+    //     });
+    // }
+
+    /***
+     James Bond Theme
+     navigator.vibrate([200,100,200,275,425,100,200,100,200,275,425,100,75,25, 75,125,75,25,75,125,100,100]);
+     Super Mario Theme
+     navigator.vibrate();
+     Darth Vader Theme
+     navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40, 500]);
+     ***/
+</script>

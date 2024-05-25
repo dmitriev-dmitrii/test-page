@@ -1,5 +1,6 @@
 
 import lorem from "@/pages/lorem.html";
+import vibration from "@/pages/vibration.html";
 import flexGap from "@/pages/flex-gap.html";
 
 const routes = [
@@ -30,6 +31,12 @@ const routes = [
         component : lorem,
         name :'lorem',
         path: "/lorem"
+    },
+    {
+        title: 'Vibration API',
+        component : vibration,
+        name :'vibration',
+        path: "/vibration"
     }
 ];
 
