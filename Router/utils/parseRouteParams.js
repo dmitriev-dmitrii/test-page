@@ -24,7 +24,7 @@ export const parseRouteParams = ({ routePath,pathRegExp, url }) => {
 
 
      const xz = {}
-    console.log(path)
+
     const valArr = path.match(pathRegExp)
 
 

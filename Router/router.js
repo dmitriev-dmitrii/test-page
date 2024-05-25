@@ -1,6 +1,5 @@
 import {buildPathRegExp} from "./utils/buildPathRegexp.js";
 
-
 let routesNamesMap = new Map()
 let routesRegexpPathMap = new Map()
 
@@ -81,7 +80,6 @@ export const push = async  (payload) => {
 
     currentRoute = findRoute(payload)
 
-    console.log(path)
     console.log('currentRoute',currentRoute)
 
     window.history.pushState(null, null, path || currentRoute.path );
